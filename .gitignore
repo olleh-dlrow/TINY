@@ -1,0 +1,9 @@
+.vs
+bin-int/
+**.vcxproj**
+**.pdb
+**.exe
+**.sln
+**.bat
+**.COPY
+**.lua
