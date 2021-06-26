@@ -165,12 +165,36 @@ static void genExp( TreeNode * tree)
   }
 } /* genExp */
 
+static void genDecl(TreeNode * tree)
+{
+    int loc;
+    if (TraceCode)
+        emitComment("-> declaration");
+    /* now store value */
+    loc = st_lookup(tree->attr.name);
+    emitRM("ST", ac, loc, gp, "declaration: initialize variable");
+    if (TraceCode)
+        emitComment("<- declaration");
+}
+
+static void genPgm(TreeNode * tree)
+{
+    cGen(tree->child[0]);
+    cGen(tree->child[1]);
+}
+
 /* Procedure cGen recursively generates code by
  * tree traversal
  */
 static void cGen( TreeNode * tree)
 { if (tree != NULL)
   { switch (tree->nodekind) {
+      case PgmK:
+        genPgm(tree);
+        break;
+      case DeclK:
+          genDecl(tree);
+          break;
       case StmtK:
         genStmt(tree);
         break;

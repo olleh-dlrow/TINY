@@ -1,16 +1,19 @@
 int x;
 int y;
-int z;
+int fact;
 char timy;
-char fact;
+
 read x;
-fact := 'c';
-timy := 'g';
+y := 1 + 2 * 3 + 1;  {8}
+timy := '0' + '2';
 if 0 < x then
   fact := 1;
   repeat
     fact := fact * x;
     x := x - 1
   until x = 0;
-  write fact
+  write fact;
+
+  write y;
+  write timy
 end

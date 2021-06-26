@@ -115,8 +115,9 @@ TreeNode * assign_stmt(void)
 TreeNode * read_stmt(void)
 { TreeNode * t = newStmtNode(ReadK);
   match(READ);
-  if ((t!=NULL) && (token==ID))
+  if ((t!=NULL) && (token==ID)){
     t->attr.name = copyString(tokenString);
+  }
   match(ID);
   return t;
 }
@@ -285,6 +286,7 @@ TreeNode * parse(void)
 { TreeNode * t;
   token = getToken();
   t = program();
+  // t = stmt_sequence();
   if (token!=ENDFILE)
     syntaxError("Code ends before file\n");
   return t;
