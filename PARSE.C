@@ -146,7 +146,15 @@ TreeNode * exp(void)
 }
 
 TreeNode * simple_exp(void)
-{ TreeNode * t = term();
+{ 
+    TreeNode * t = NULL;
+    if ((token==PLUS)||(token==MINUS))
+    {
+          t = newExpNode(ConstK);
+          t->attr.val = 0;
+          t->type = Integer;
+    }
+  else t = term();
   while ((token==PLUS)||(token==MINUS))
   { TreeNode * p = newExpNode(OpK);
     if (p!=NULL) {

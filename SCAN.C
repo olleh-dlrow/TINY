@@ -177,7 +177,7 @@ TokenType getToken(void)
          }
          break;
        case INID:
-         if (!isalpha(c))
+         if (!isalpha(c) && !isdigit(c))
          { /* backup in the input */
            ungetNextChar();
            save = FALSE;
