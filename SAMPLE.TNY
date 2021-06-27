@@ -1,10 +1,12 @@
+{n!}
+{ 
 int x;
 int y;
 int fact;
 char timy;
 
 read x;
-y := 1 + 2 * 3 + 1;  {8}
+y := 1 + 2 * 3 + 1;
 timy := '0' + '2';
 if 0 < x then
   fact := 1;
@@ -16,4 +18,52 @@ if 0 < x then
 
   write y;
   write timy
+end
+}
+
+{fibonacci}
+{
+int n;
+int pre;
+int cur;
+int post;
+int idx;
+
+read n;
+if 0 < n then
+    idx := 1;
+    pre := 0;
+    cur := 1;
+    repeat
+        if idx = 1 then
+            write 1
+        else 
+            post := pre + cur;
+            pre := cur;
+            cur := post;
+            write cur
+        end;
+        idx := idx + 1
+    until n < idx
+end
+}           
+
+{exp}
+int exp;
+int x;
+int res;
+
+read x;
+read exp;
+if exp < 0 then
+    write -1
+else
+    res := 1;
+    if 0 < exp then
+        repeat
+            res := res * x;
+            exp := exp - 1
+        until exp < 1
+    end;
+    write res
 end
