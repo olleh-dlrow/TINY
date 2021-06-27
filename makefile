@@ -1,61 +1,44 @@
-#
-# makefile for TINY
-# Borland C Version
-# K. Louden 2/3/98
-#
-
-CC = bcc
+CC = gcc
 
 CFLAGS = 
 
-OBJS = main.obj util.obj scan.obj parse.obj symtab.obj analyze.obj code.obj cgen.obj
+OBJS = main.o util.o scan.o parse.o symtab.o analyze.o code.o cgen.o
 
-tiny.exe: $(OBJS)
-	$(CC) $(CFLAGS) -etiny $(OBJS)
+tiny: $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
-main.obj: main.c globals.h util.h scan.h parse.h analyze.h cgen.h
+main.o: main.c globals.h util.h scan.h parse.h analyze.h cgen.h
 	$(CC) $(CFLAGS) -c main.c
 
-util.obj: util.c util.h globals.h
+util.o: util.c util.h globals.h
 	$(CC) $(CFLAGS) -c util.c
 
-scan.obj: scan.c scan.h util.h globals.h
+scan.o: scan.c scan.h util.h globals.h
 	$(CC) $(CFLAGS) -c scan.c
 
-parse.obj: parse.c parse.h scan.h globals.h util.h
+parse.o: parse.c parse.h scan.h globals.h util.h
 	$(CC) $(CFLAGS) -c parse.c
 
-symtab.obj: symtab.c symtab.h
+symtab.o: symtab.c symtab.h globals.h
 	$(CC) $(CFLAGS) -c symtab.c
 
-analyze.obj: analyze.c globals.h symtab.h analyze.h
+analyze.o: analyze.c globals.h symtab.h analyze.h
 	$(CC) $(CFLAGS) -c analyze.c
 
-code.obj: code.c code.h globals.h
+code.o: code.c code.h globals.h
 	$(CC) $(CFLAGS) -c code.c
 
-cgen.obj: cgen.c globals.h symtab.h code.h cgen.h
+cgen.o: cgen.c globals.h symtab.h code.h cgen.h
 	$(CC) $(CFLAGS) -c cgen.c
 
 clean:
-	-del tiny.exe
-	-del tm.exe
-	-del main.obj
-	-del util.obj
-	-del scan.obj
-	-del parse.obj
-	-del symtab.obj
-	-del analyze.obj
-	-del code.obj
-	-del cgen.obj
-	-del tm.obj
+	rm -f tiny tm *.o
 
-tm.exe: tm.c
-	$(CC) $(CFLAGS) -etm tm.c
+tm: tm.c
+	$(CC) $(CFLAGS) -o $@ tm.c
 
-tiny: tiny.exe
+tiny: tiny
 
-tm: tm.exe
+tm: tm
 
 all: tiny tm
-
